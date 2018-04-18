@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-// import App from './App';
-import SidebarExample from './SidebarExample';
+import { Provider } from 'mobx-react';
 import registerServiceWorker from './registerServiceWorker';
+import App from './components/App';
+import store from './store';
+import routes from './routes';
 
-ReactDOM.render(<SidebarExample />, document.getElementById('root'));
+ReactDOM.render(<Provider store={store}>
+    <App routes={routes}/>
+</Provider>, document.getElementById('root'));
 registerServiceWorker();
