@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { Redirect } from 'react-router-dom';
 
+import Button from '../Button';
+import Input from '../Input';
 import './Login.css';
 
 @inject('store')
@@ -31,10 +33,10 @@ class Login extends Component {
         }
 
         return <form className="Login" onSubmit={this.onSubmit.bind(this)}>
-            <input name="username" ref={this.username} />
-            <input name="password" type="password" ref={this.password} />
+            <Input name="username" ref={this.username} />
+            <Input name="password" type="password" ref={this.password} />
 
-            <button type="submit">Log In</button>
+            <Button type="submit" onClick={this.onSubmit.bind(this)}>Log In</Button>
         </form>
     }
 }

@@ -1,16 +1,20 @@
 import React from "react";
+import { Link } from 'react-router-dom';
+
 import List from '../components/List';
 import Login from '../components/Login';
 
 export default [
     {
+        title: 'Home',
         path: "/",
         exact: true,
-        component: () => <div>home!</div>,
+        component: () => <h2>Welcome Home!</h2>,
     },
     {
+        title: 'About',
         path: "/about",
-        component: () => <div>About page!</div>,
+        component: () => <h2>About page!</h2>,
     },
     {
         path: "/login",
@@ -18,28 +22,34 @@ export default [
     },
     {
         path: "/campaigns/:id",
-        component: ({ match }) => <div>Campaign {match.params.id}!</div>,
+        component: ({ match }) => <h2>Campaign {match.params.id}!</h2>,
         needAuth: true
     },
     {
+        title: 'Campaigns',
         path: "/campaigns",
         component: () => <List
-            title="Campaigns"
-            url="/campaigns/"
-            data={[1,2,3]} />,
+            header={<h2>Campaigns</h2>}
+            dataSource={[1,2,3]}
+            renderItem={id => <List.Item>
+                <Link to={`/campaigns/${id}/`}>{id}</Link>
+            </List.Item>} />,
         needAuth: true
     },
     {
         path: "/candidates/:id",
-        component: ({ match }) => <div>Candidate {match.params.id}!</div>,
+        component: ({ match }) => <h2>Candidate {match.params.id}!</h2>,
         needAuth: true
     },
     {
+        title: 'Candidates',
         path: "/candidates",
         component: () => <List
-            title="Candidates"
-            url="/candidates/"
-            data={['fhOdj', 'Ksms3', 'Ld3md']} />,
+            header={<h2>Candidates</h2>}
+            dataSource={['fhOdj', 'Ksms3', 'Ld3md']}
+            renderItem={id => <List.Item>
+                <Link to={`/candidates/${id}/`}>{id}</Link>
+            </List.Item>} />,
         needAuth: true
     }
 ];

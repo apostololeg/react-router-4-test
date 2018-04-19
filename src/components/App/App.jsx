@@ -3,6 +3,8 @@ import { inject, observer } from 'mobx-react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 import AuthenticatedRoute from '../AuthenticatedRoute';
+import List from '../List';
+import Checkbox from '../Checkbox';
 import './App.css';
 
 const NoMatch = ({ location }) => <h2>Not found "{location.pathname}".</h2>
@@ -36,22 +38,30 @@ class App extends Component {
     render() {
         const { routes } = this.props;
         const { logged } = this.store.auth.is;
+        const menuData = routes
+            .filter(item => item.title)
+            .concat([{
+                title: 'No match location',
+                path: '/not/match/location'
+            }]);
 
         return <Router>
             <div className='App'>
                 <div className='App__menu'>
-                    <ul className='Appp__menu-list'>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/campaigns">Campaigns</Link> (needAuth)</li>
-                        <li><Link to="/candidates">Candidates</Link> (needAuth)</li>
-                        <li><Link to="/about">About</Link></li>
-                        <li><Link to="/not/match/location">Not match location</Link></li>
-                    </ul>
+                    <List className='Appp__menu-list'
+                        size="small"
+                        bordered
+                        dataSource={menuData}
+                        renderItem={({ path, title }) => <List.Item>
+                            <Link to={path}>{title}</Link>
+                        </List.Item>}
+                    />
                     <div className="App__logged">
-                        <input id="logged" type="checkbox"
+                        <Checkbox
                             onChange={this.onLoggedChange.bind(this)}
-                            checked={logged} />
-                        <label htmlFor="logged">Logged</label>
+                            checked={logged}>
+                            Logged
+                        </Checkbox>
                     </div>
                 </div>
 
@@ -63,7 +73,7 @@ class App extends Component {
                         };
 
                         return route.needAuth
-                            ? <AuthenticatedRoute {...props } isLoggedIn={logged} />
+                            ? <AuthenticatedRoute {...props} isLoggedIn={logged} />
                             : <Route {...props} />
                     })}
                     <Route component={NoMatch} />

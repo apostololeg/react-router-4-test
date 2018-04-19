@@ -1,1 +1,4 @@
-export { default } from './List';
+import { List } from 'antd';
+import 'antd/lib/list/style/index.css';
+
+export default List;
