@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
-
 import AuthenticatedRoute from '../AuthenticatedRoute';
+
 import List from '../List';
 import Checkbox from '../Checkbox';
 import './App.css';

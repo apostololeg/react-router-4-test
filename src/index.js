@@ -5,6 +5,7 @@ import registerServiceWorker from './registerServiceWorker';
 import App from './components/App';
 import store from './store';
 import routes from './routes';
+import './ui-theme/';
 
 ReactDOM.render(<Provider store={store}>
     <App routes={routes}/>
